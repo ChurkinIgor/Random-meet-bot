@@ -111,7 +111,8 @@ async def scheduled_job():
     await send_meeting_pairs(app)
 
 # Запуск бота
-app = ApplicationBuilder().token(os.getenv("BOT_TOKEN")).build()
+app = ApplicationBuilder().token(os.getenv("8164110474:AAFPJ5XpHZuPRIG_q0omISGy4aM8M-Vlo6A
+")).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("stop", stop))
 app.add_handler(CommandHandler("list", list_users))
