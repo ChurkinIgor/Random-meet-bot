@@ -124,6 +124,13 @@ async def top(update: Update, context: ContextTypes.DEFAULT_TYPE):
     lines = [f"{i+1}. @{r[0]} — {r[1]} встреч, {r[2]} тем" for i, r in enumerate(rows)]
     await update.message.reply_text("🏆 Топ участников:\n\n" + "\n".join(lines))
 
+async def count(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.effective_user.id != 217092555:
+        return await update.message.reply_text("⛔ Только для администратора.")
+    cursor.execute("SELECT COUNT(*) FROM users")
+    total = cursor.fetchone()[0]
+    await update.message.reply_text(f"👥 Всего участников: {total}")
+
 # --- Встречи ---
 async def match_users():
     cursor.execute("SELECT user_id FROM skip")
@@ -176,3 +183,4 @@ bot_app.add_handler(CommandHandler("topics", topics))
 bot_app.add_handler(CommandHandler("stats", stats))
 bot_app.add_handler(CommandHandler("top", top))
 bot_app.add_handler(CallbackQueryHandler(skip_week_callback, pattern="^skip_week$"))
+bot_app.add_handler(CommandHandler("count", count))
