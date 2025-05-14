@@ -168,15 +168,12 @@ def top_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     rows = cursor.fetchall()
     if not rows:
         return update.message.reply_text("Пока нет статистики.")
-    text = "🏆 Топ участников по активности:
-
-"
+    
+    text = "🏆 Топ участников по активности:\n\n"
     for i, (username, meet, top) in enumerate(rows, start=1):
         name = f"@{username}" if username else f"ID {i}"
-        text += f"{i}. {name} — {meet} встреч, {top} тем
-"
+        text += f"{i}. {name} — {meet} встреч, {top} тем\n"
     return update.message.reply_text(text)
-
 # Список всех участников (только для администратора)
 def list_users(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
